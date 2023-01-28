@@ -1,10 +1,14 @@
-import { useState } from "react";
 import "./App.css";
+import ItemListContainer from "./components/ItemListContainer";
+import NavBar from "./components/NavBar";
 
 function App() {
-	const [count, setCount] = useState(0);
-
-	return <div className="App"></div>;
+	return (
+		<div>
+			<NavBar />
+			<ItemListContainer greeting="" />
+		</div>
+	);
 }
 
 export default App;
