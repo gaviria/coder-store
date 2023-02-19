@@ -36,7 +36,7 @@ Enjoy!!!
 
 ## Demo
 
-Insert gif or link to demo
+![App Screenshot](https://github.com/gaviria/coder-store/blob/master/public/images/web.gif)
 
 ## Screenshots
 
