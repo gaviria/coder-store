@@ -22,8 +22,8 @@ const ItemCount = ({ cantidadDisponible, onAdd }: props) => {
 	};
 
 	return (
-		<>
-			<div className="flex align-middle justify-between w-40 h-8 border-2 border-solid rounded border-indigo-600 mx-auto">
+		<div className="flex flex-row gap-6">
+			<div className="flex items-center justify-between w-40 h-10 border-2 border-solid rounded border-indigo-600">
 				<button
 					className="ml-2"
 					onClick={() => handleClickRestar(pedidos - 1)}
@@ -42,13 +42,13 @@ const ItemCount = ({ cantidadDisponible, onAdd }: props) => {
 			</div>
 
 			<button
-				className="w-1/6 h-10 border-solid border-2 border-indigo-600 rounded text-indigo-600 font-semibold hover:text-white hover:bg-indigo-600"
+				className="w-40 h-10 border-solid border-2 border-indigo-600 rounded hover:text-indigo-600 hover:bg-white font-semibold text-white bg-indigo-600"
 				onClick={() => onAdd(pedidos)}
 				disabled={cantidadDisponible === 0 || pedidos === 0}
 			>
 				Agregar al Carrito
 			</button>
-		</>
+		</div>
 	);
 };
 
