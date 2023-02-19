@@ -5,6 +5,7 @@ export type itemListType = {
 	price: number;
 	pictureUrl: string;
 	stock: number;
+	category: string;
 }[];
 
 export type itemType = {
@@ -14,4 +15,5 @@ export type itemType = {
 	price: number;
 	pictureUrl: string;
 	stock: number;
+	category: string;
 };
