@@ -1,67 +1,94 @@
 import ItemList from "./ItemList";
 import { useEffect, useState } from "react";
+import Data from "./../../data.json";
+import { Link, NavLink, useParams } from "react-router-dom";
+import { itemListType, itemType } from "../types/ItemList";
 
 type ItemListProps = {
 	greeting: string;
 };
 
-const data = [
-	{
-		id: 1,
-		title: "Comida Perros 1",
-		description: "description 1",
-		price: 100,
-		pictureUrl: "images/comidaitem1.jpg",
-		stock: 5,
-	},
-	{
-		id: 2,
-		title: "Comida Perros 2",
-		description: "description 2",
-		price: 200,
-		pictureUrl: "images/comidaitem2.jpg",
-		stock: 5,
-	},
-	{
-		id: 3,
-		title: "Comida Perros 3",
-		description: "description 3",
-		price: 400,
-		pictureUrl: "images/comidaitem3.jpg",
-		stock: 5,
-	},
-	{
-		id: 4,
-		title: "Comida Perros 4",
-		description: "description 4",
-		price: 400,
-		pictureUrl: "images/comidaitem4.jpg",
-		stock: 5,
-	},
-];
-
 const ItemListContainer = ({ greeting }: ItemListProps) => {
+	const { id } = useParams();
 	const [itemList, setItemList] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const styleCategory = "font-semibold text-rose-600";
+	const styleInactiveCategory = "font-semibold text-indigo-600";
 
 	useEffect(() => {
+		setLoading(true);
 		const getData = new Promise((resolve, reject) => {
 			setTimeout(() => {
-				if (data.length) {
-					resolve(data);
+				if (Data.length) {
+					resolve(Data);
 				} else {
 					reject("No hay Datos");
 				}
 			}, 2000);
 		});
-		getData.then((res) => setItemList(res)).catch((reject) => reject);
+		getData
+			.then((res) => {
+				setLoading(false);
+				setItemList(res);
+			})
+			.catch((reject) => reject);
 	}, []);
+
+	let categoryFilter: itemListType = [];
+	if (id) {
+		categoryFilter = itemList.filter(
+			(item: itemType) => item.category === id
+		);
+	}
 
 	return (
 		<>
 			<h2 className="mt-4 mb-12 text-center text-2xl font-bold text-indigo-600">
 				{greeting}
 			</h2>
-			<ItemList itemList={itemList} />
+			<div className="w-1/3 m-auto py-2 flex gap-4 items-center justify-center mb-10 border rounded-2xl border-indigo-600">
+				<div className="mr-4 font-semibold text-indigo-600">
+					Categorias:
+				</div>
+				<div className="flex gap-10">
+					<NavLink
+						to="/catalogue"
+						className={({ isActive }) =>
+							isActive ? styleCategory : styleInactiveCategory
+						}
+					>
+						Todos
+					</NavLink>
+					<NavLink
+						to="/category/normal"
+						className={({ isActive }) =>
+							isActive ? styleCategory : styleInactiveCategory
+						}
+					>
+						Normal
+					</NavLink>
+					<NavLink
+						to="/category/peso"
+						className={({ isActive }) =>
+							isActive ? styleCategory : styleInactiveCategory
+						}
+					>
+						Peso
+					</NavLink>
+					<NavLink
+						to="/category/piel"
+						className={({ isActive }) =>
+							isActive ? styleCategory : styleInactiveCategory
+						}
+					>
+						Piel
+					</NavLink>
+				</div>
+			</div>
+			<ItemList
+				itemList={categoryFilter.length ? categoryFilter : itemList}
+				loading={loading}
+			/>
 		</>
 	);
 };

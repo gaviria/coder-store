@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import { itemType } from "../types/ItemList";
 
 type Props = {
@@ -6,7 +6,6 @@ type Props = {
 };
 
 const Item = ({ item }: Props) => {
-	console.log("🚀 ~ file: Item.tsx:9 ~ Item ~ item", item);
 	return (
 		<div className="w-72 py-2 flex flex-col gap-3 items-center justify-center hover:border border-indigo-300 rounded-xl">
 			<div>
@@ -18,9 +17,14 @@ const Item = ({ item }: Props) => {
 			<div className="text-xl font-itemFont text-rose-600">
 				${item.price}
 			</div>
-			<button className="w-52 h-10 border-solid border-2 border-indigo-600 rounded text-indigo-600 font-semibold hover:text-white hover:bg-indigo-600">
-				Ver Detalles
-			</button>
+			<div className="text-xl font-itemFont text-rose-600">
+				Disponibles: {item.stock}
+			</div>
+			<Link to={`/item/${item.id}`}>
+				<button className="w-52 h-10 border-solid border-2 border-indigo-600 rounded text-indigo-600 font-semibold hover:text-white hover:bg-indigo-600">
+					Ver Detalles
+				</button>
+			</Link>
 		</div>
 	);
 };
