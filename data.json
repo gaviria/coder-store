@@ -1,0 +1,38 @@
+[
+	{
+		"id": 1,
+		"title": "Comida Perros 1",
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio ut sem nulla pharetra diam.",
+		"price": 100,
+		"pictureUrl": "/images/comidaitem1.jpg",
+		"stock": 5,
+		"category": "normal"
+	},
+	{
+		"id": 2,
+		"title": "Comida Perros 2",
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio ut sem nulla pharetra diam.",
+		"price": 200,
+		"pictureUrl": "/images/comidaitem2.jpg",
+		"stock": 2,
+		"category": "normal"
+	},
+	{
+		"id": 3,
+		"title": "Comida Perros 3",
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio ut sem nulla pharetra diam.",
+		"price": 400,
+		"pictureUrl": "/images/comidaitem3.jpg",
+		"stock": 8,
+		"category": "piel"
+	},
+	{
+		"id": 4,
+		"title": "Comida Perros 4",
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio ut sem nulla pharetra diam.",
+		"price": 400,
+		"pictureUrl": "/images/comidaitem4.jpg",
+		"stock": 3,
+		"category": "peso"
+	}
+]
