@@ -1,7 +1,14 @@
 import ItemList from "./ItemList";
 import { useEffect, useState } from "react";
-import Data from "./../../data.json";
-import { Link, NavLink, useParams } from "react-router-dom";
+//import Data from "./../../data.json";
+import {
+	getFirestore,
+	collection,
+	getDocs,
+	query,
+	where,
+} from "firebase/firestore";
+import { NavLink, useParams } from "react-router-dom";
 import { itemListType, itemType } from "../types/ItemList";
 
 type ItemListProps = {
@@ -15,31 +22,55 @@ const ItemListContainer = ({ greeting }: ItemListProps) => {
 	const styleCategory = "font-semibold text-rose-600";
 	const styleInactiveCategory = "font-semibold text-indigo-600";
 
+	const queryProducts = (query) => {
+		getDocs(query).then((collection) => {
+			setItemList(
+				collection.docs.map((product) => {
+					return { id: parseInt(product.id), ...product.data() };
+				})
+			);
+			setLoading(false);
+		});
+	};
+
 	useEffect(() => {
 		setLoading(true);
-		const getData = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				if (Data.length) {
-					resolve(Data);
-				} else {
-					reject("No hay Datos");
-				}
-			}, 2000);
-		});
-		getData
-			.then((res) => {
-				setLoading(false);
-				setItemList(res);
-			})
-			.catch((reject) => reject);
-	}, []);
+		//Con firebase
+		const queryDb = getFirestore();
+		const queryCollection = collection(queryDb, "products");
+		if (id) {
+			const queryFilterCategory = query(
+				queryCollection,
+				where("category", "==", id)
+			);
+			queryProducts(queryFilterCategory);
+		} else {
+			queryProducts(queryCollection);
+		}
 
-	let categoryFilter: itemListType = [];
-	if (id) {
-		categoryFilter = itemList.filter(
-			(item: itemType) => item.category === id
-		);
-	}
+		// const getData = new Promise((resolve, reject) => {
+		// 	setTimeout(() => {
+		// 		if (Data.length) {
+		// 			resolve(Data);
+		// 		} else {
+		// 			reject("No hay Datos");
+		// 		}
+		// 	}, 2000);
+		// });
+		// getData
+		// 	.then((res) => {
+		// 		setLoading(false);
+		// 		setItemList(res);
+		// 	})
+		// 	.catch((reject) => reject);
+	}, [id]);
+
+	// let categoryFilter: itemListType = [];
+	// if (id) {
+	// 	categoryFilter = itemList.filter(
+	// 		(item: itemType) => item.category === id
+	// 	);
+	// }
 
 	return (
 		<>
@@ -86,7 +117,8 @@ const ItemListContainer = ({ greeting }: ItemListProps) => {
 				</div>
 			</div>
 			<ItemList
-				itemList={categoryFilter.length ? categoryFilter : itemList}
+				// itemList={categoryFilter.length ? categoryFilter : itemList}
+				itemList={itemList}
 				loading={loading}
 			/>
 		</>
