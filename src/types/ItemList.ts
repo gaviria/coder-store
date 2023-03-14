@@ -6,6 +6,7 @@ export type itemListType = {
 	pictureUrl: string;
 	stock: number;
 	category: string;
+	units?: number;
 }[];
 
 export type itemType = {
@@ -16,4 +17,5 @@ export type itemType = {
 	pictureUrl: string;
 	stock: number;
 	category: string;
+	units?: number;
 };
